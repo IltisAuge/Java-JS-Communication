@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="JavaScriptClient.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      console.log("Running client");
+      connect("127.0.0.1", 31912);
+      var onMessage_ = onMessage;
+      onMessage = event => {
+          onMessage_(event);
+          const message = event.data;
+          const json = JSON.parse(message);
+          var element = document.createElement('div');
+          element.style.border = "1px solid green";
+          var child = "<h1>von " + json.sender + ":</h1>";
+          var child2 = "<p>" + json.message + "</p>";
+          element.insertAdjacentHTML('beforeend', child);
+          element.insertAdjacentHTML('beforeend', child2);
+          document.body.appendChild(element);
+      };
+    </script>
+  </body>
+</html>
